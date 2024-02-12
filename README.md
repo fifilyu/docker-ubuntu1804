@@ -117,22 +117,22 @@ fifilyu/ubuntu1804:latest
 
 #### 常用工具
 
-* bash-completion
+* apt-file
+* aptitude
 * bzip2
 * curl
-* iproute
+* iproute2
 * mlocate
-* openssh-clients
+* openssh-client
 * openssh-server
+* openssl
 * pwgen
 * rsync
 * screen
+* sudo
 * tar
 * tcpdump
 * telnet
-* tree
-* unzip
-* vim-enhanced
+* vim
 * wget
-* xz
-* dnf-utils
+* xz-utils
