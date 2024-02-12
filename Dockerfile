@@ -14,24 +14,24 @@ ARG DEBIAN_FRONTEND=noninteractive
 ####################
 COPY file/etc/apt/sources.list /etc/apt/sources.list
 
-RUN apt-get clean
-RUN apt-get update
+RUN ulimit -n 1024 && apt-get clean
+RUN ulimit -n 1024 && apt-get update
 
 ####################
 # 语言支持
 ####################
-RUN apt-get install -y locales
+RUN ulimit -n 1024 && apt-get install -y locales
 RUN locale-gen "en_US.UTF-8"
 
 ####################
 # 更新系统软件包
 ####################
-RUN apt-get -y upgrade
+RUN ulimit -n 1024 && apt-get -y upgrade
 
 ####################
 # 初始化
 ####################
-RUN apt-get install -y mlocate openssh-server iproute2 curl wget tcpdump vim telnet screen sudo rsync tcpdump openssh-client tar bzip2 xz-utils pwgen aptitude apt-file
+RUN ulimit -n 1024 && apt-get install -y mlocate openssh-server iproute2 curl wget tcpdump vim telnet screen sudo rsync tcpdump openssh-client tar bzip2 xz-utils pwgen aptitude apt-file
 
 RUN grep 'set fencs=utf-8,gbk' /etc/vimrc || echo 'set fencs=utf-8,gbk' >> /etc/vim/vimrc
 
@@ -60,7 +60,7 @@ RUN sed -i "s/#ClientAliveCountMax 3/ClientAliveCountMax 10/" /etc/ssh/sshd_conf
 ####################
 # 安装Python3.12
 ####################
-RUN apt-get install -y libssl-dev libffi-dev zlib1g-dev tk-dev libsqlite3-dev libbz2-dev ncurses-dev liblzma-dev uuid-dev libreadline-dev libgdbm-dev libgdbm-compat-dev
+RUN ulimit -n 1024 && apt-get install -y libssl-dev libffi-dev zlib1g-dev tk-dev libsqlite3-dev libbz2-dev ncurses-dev liblzma-dev uuid-dev libreadline-dev libgdbm-dev libgdbm-compat-dev
 
 ###########################
 ## 安装Python312
@@ -87,7 +87,7 @@ RUN ./pip312 install --root-user-action=ignore -U yq toml-cli
 COPY file/usr/local/bin/jq /usr/local/bin/jq
 RUN chmod 755 /usr/local/bin/jq
 
-RUN apt-get install -y xmlstarlet crudini
+RUN ulimit -n 1024 && apt-get install -y xmlstarlet crudini
 
 ####################
 # BASH设置
@@ -97,7 +97,7 @@ RUN echo "alias ll='ls -l --color=auto --group-directories-first'" >> /root/.bas
 ####################
 # 清理
 ####################
-RUN apt-get clean
+RUN ulimit -n 1024 && apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ####################
